@@ -28,32 +28,39 @@ class NeuralNetwork():
     
 if __name__ == "__main__":
 
-    neural_network = NeuralNetwork(5)
+    num = int(input("How many factors to consider? "))
+    neural_network = NeuralNetwork(num)
 
     print("Random synaptic weights: ")
     print(neural_network.synaptic_weights)
 
-    training_inputs = np.array([[0,0,1,1,1], [1,1,1,0,1], [1,0,1,0,1], [0,1,1,1,1], [0,1,0,1,1], [1,0,1,0,1]])
-    print("Training inputs")
+    training_inputs = np.array([[0.5,0.9,1], #image 1
+                                [2,0.7,0.8], #image 2
+                                [1,0.6,0.2], #image 3
+                                [0,0,0.3], #image 4
+                                [1,0.5,0.8], #image 5
+                                [1,0.9,0.9]]) #image 6
+    print("Training inputs:")
     print(training_inputs)
 
-    training_outputs = np.array([[0,1,1,0,1,0]]).T
+    training_outputs = np.array([[0.97,0.93,0.76,0.83,0.91,0.92]]).T #result for image 1, 2, 3, 4, 5, 6
 
-    neural_network.train(training_inputs, training_outputs, 100000)
+    neural_network.train(training_inputs, training_outputs, 20000)
 
     print("Synaptic weights after training: ")
     print(neural_network.synaptic_weights)
 
+    numUserTests = int(input("How many scenarios to predict? "))
+    for test in range(numUserTests):
+        print("Test number " + str(test + 1))
+        A = str(input("Input 1: "))
+        B = str(input("Input 2: "))
+        C = str(input("Input 3: "))
+        #D = str(input("Input 4: "))
+        #E = str(input("Input 5: "))
+        
 
-    
-    A = str(input("Input 1: "))
-    B = str(input("Input 2: "))
-    C = str(input("Input 3: "))
-    D = str(input("Input 4: "))
-    E = str(input("Input 5: "))
-    
+        print("New situation input data: ", A, B, C)
 
-    print("New situation input data ", A, B, C, D, E)
-
-    print("output data")
-    print(neural_network.think(np.array([A, B, C, D, E])))
+        print("Output:")
+        print(neural_network.think(np.array([A, B, C])))
